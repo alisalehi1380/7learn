@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\V1\PostController as PostV1;
+use App\Http\Controllers\API\V2\PostController as PostV2;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('/v1')->name('v1.')->group(function () {
+        Route::prefix('/posts')->name('post.')->group(function () {
+        Route::get('/', [PostV1::class,'index'])->name('index');
+        Route::get('{post}/show', [PostV1::class,'show'])->name('show');
+    });
 });
+
+Route::prefix('/v2')->name('v2.')->group(function () {
+        Route::prefix('/posts')->name('post.')->group(function () {
+        Route::get('/', [PostV2::class,'index'])->name('index');
+        // Route::get('{post}/show', 'API/V1/PostController@show')->name('show');
+    });
+});
+
