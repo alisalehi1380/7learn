@@ -15,11 +15,24 @@ class Elastic
       ->build();
     }
 
-    public function index($params)
+    public function index($post)
     {
-         dd($this->client->index($params));
+ 
+      $params = [
+         'index' => 'posts',
+         'id' => $post->id,
+         'body' => [
+             'title' => $post->title,
+             'content' => $post->content,
+             'publish_date_time' => $post->publish_date_time,
+             'status' => $post->status,
+             'created_at' => $post->created_at,
+             'updated_at' => $post->created_at,
+         ] 
+     ];
+   
+     $this->client->index($params);
     }
-
 
     public function show($params)
     {
@@ -30,6 +43,30 @@ class Elastic
     {
        return (json_decode($this->client->search($params)));
     }
+
+    public function update($post):void
+    {
+      $params = [
+         'index' => 'posts',
+         'id' => $post->id,
+         'body' => [
+             'title' => $post->title,
+             'content' => $post->content,
+             'publishDateTime' => $post->publishDateTime,
+             'status' => $post->status,
+         ] 
+     ];
+      
+     $this->client->update($params);
+    }
+
+    public function delete($post):void
+    {
+         $params = [
+            'index' => 'posts',
+            'id' => $post->id];
+         
+      $this->client->delete($params);
+    }
    
- 
 }

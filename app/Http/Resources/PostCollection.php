@@ -15,7 +15,7 @@ class PostCollection extends ResourceCollection
                 'id' => $item->_id,
                 'title'=> $item->_source->title,
                 'content'=> $item->_source->content,
-                'publishDateTime'=> $item->_source->publishDateTime,
+                'publish_date_time'=> $item->_source->publish_date_time,
                 'status'=> $item->_source->status
             ];
         });

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Elastic\Elasticsearch\ClientBuilder;
 use App\Services\Elastic;
 use App\Models\Post;
+use Illuminate\Database\Eloquent\Collection;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,26 +18,16 @@ use App\Models\Post;
 
 Route::get('/set', function () {
 
-//   return  Post::create([
-//         'title' => fake()->name(),
-//         'content' => fake()->text(200),
-//         'publishDateTime' => fake()->dateTime(),
-//         'status' => rand(0, 1) ? 'Archive' : 'Publish'
-//     ]);
+    Post::chunk(1000, function (Collection $posts) {
+        foreach ($posts as $post) {
+             
+         $elastic = new Elastic();
+         $elastic->delete($post);
+        }
+    });
 
-    $elastic = new Elastic();
-    $params = [
-        'index' => 'posts',
-        'id' => 40,
-        'body' => [
-            'title' => fake()->name(),
-            'content' => fake()->text(200),
-            'publishDateTime' => fake()->dateTime(),
-            'status' => rand(0, 1) ? 'Archive' : 'Publish'
-        ] 
-    ];
 
-      $elastic->index($params);
+
 
 });
 

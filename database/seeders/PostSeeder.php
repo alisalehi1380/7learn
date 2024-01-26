@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use  App\Models\Post;
 use  App\Models\Tag;
 use  App\Models\Category;
-use Illuminate\Support\Facades\DB;
+use App\Services\Elastic;
 
 
 class PostSeeder extends Seeder
@@ -20,8 +20,16 @@ class PostSeeder extends Seeder
         $cap = 1000000;
         $chunk = 1000;
         for($i = 0;$i< $cap ;$i+= $chunk) {
+            //create post
             $posts = Post::factory()->count($chunk)->create();
+
+          
             $posts->each(function ($post){
+
+               //integration with elasticsearch
+                 $elastic = new Elastic();
+                 $elastic->index($post);
+                //attach tags
                 $tags = Tag::inRandomOrder()->limit(rand(2,10))->pluck("id");
                 $post->tags()->sync($tags);
             });

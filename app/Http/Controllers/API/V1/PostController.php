@@ -13,12 +13,13 @@ class PostController extends Controller
     public function index()
     {
         $from =0;
-        if(is_numeric(request('page')) && request('page')>0)
+        if(is_numeric(request('page')) && request('page')>1)
         {
-             $from = request('page')-1;
+             $from = (request('page')-1)*100;
         } 
     
         $filter = array();
+ 
     
         if (isset($_GET['title']))
         {
