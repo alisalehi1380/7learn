@@ -19,7 +19,7 @@ class PostFactory extends Factory
         return [
             'title' => fake()->name(),
             'content' => fake()->text(200),
-            'publishDateTime' => fake()->dateTime(),
+            'publish_date_time' => fake()->dateTime(),
             'status' => rand(0, 1) ? 'Archive' : 'Publish'
         ];
     }

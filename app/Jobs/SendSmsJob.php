@@ -7,19 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use App\Services\Sms;
 
 class SendSmsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $mobile;
+    protected $mobiles;
     protected $message;
     /**
      * Create a new job instance.
      */
-    public function __construct($mobile,$message)
+    public function __construct($mobiles,$message)
     {
-        $this->mobile = $mobile;
+        $this->mobiles = $mobiles;
         $this->message = $message;
     }
 
@@ -28,6 +29,7 @@ class SendSmsJob implements ShouldQueue
      */
     public function handle(): void
     {
-        echo $this->mobile."***".$this->message;
+        $sms = new Sms();
+        $sms->send($this->mobiles,$this->message);
     }
 }

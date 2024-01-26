@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Collection;
 use App\Services\Elastic;
+use App\Jobs\SendSmsJob;
 
 class ElasticSyncer extends Command
 {
@@ -45,6 +46,6 @@ class ElasticSyncer extends Command
            
         });
 
-        
+        dispatch(new SendSmsJob(array(env("OWNER_MOBILE")),"Now elasticsearch and database are synced togheder."));
     }
 }

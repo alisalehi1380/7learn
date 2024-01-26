@@ -8,6 +8,7 @@ use  App\Models\Post;
 use  App\Models\Tag;
 use  App\Models\Category;
 use App\Services\Elastic;
+use App\Jobs\SendSmsJob;
 
 
 class PostSeeder extends Seeder
@@ -17,8 +18,8 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {    
-        $cap = 1000000;
-        $chunk = 1000;
+        $cap = 1000;
+        $chunk = 100;
         for($i = 0;$i< $cap ;$i+= $chunk) {
             //create post
             $posts = Post::factory()->count($chunk)->create();
@@ -34,5 +35,8 @@ class PostSeeder extends Seeder
                 $post->tags()->sync($tags);
             });
         }
+      
+        dispatch(new SendSmsJob(array(env("OWNER_MOBILE")),"ElasticSearch is updated."));
+     
    }
 }

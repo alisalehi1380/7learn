@@ -1,10 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Elastic\Elasticsearch\ClientBuilder;
-use App\Services\Elastic;
-use App\Models\Post;
-use Illuminate\Database\Eloquent\Collection;
+ 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,68 +13,12 @@ use Illuminate\Database\Eloquent\Collection;
 |
 */
 
-Route::get('/set', function () {
+Route::get('/', function () {
 
-    Post::chunk(1000, function (Collection $posts) {
-        foreach ($posts as $post) {
-             
-         $elastic = new Elastic();
-         $elastic->delete($post);
-        }
-    });
-
-
-
+    return view('welcome');
 
 });
 
-
-Route::get('/show', function () {
-
-
-        $elastic = new Elastic();
-        $params = [
-            'index' => 'posts',
-            'id'    =>  31
-        ];
-    
-        $response = $elastic->show($params)->_source;
-
-        return $response;
-        
-    
-    });
-
-
-
-Route::get('/list', function () {
-
-    $from =0;
-    if(is_numeric(request('page')) && request('page')>0)
-    {
-         $from = request('page')-1;
-    } 
-
-    $filter = array();
-
-    if (isset($_GET['title']))
-    {
-        $filter['query'] = [ 'match' => ['title' => $_GET['title'] ]];
-    }
-
-    $params = [
-         "from"=> $from,
-         "size"=> 100,
-         'index' => 'posts',
-         'body'  => $filter
-    ];
-
-    $elastic = new Elastic();
-    $response = $elastic->list($params)->hits->hits;
-
-    return $response;
-    
-
-});
+ 
 
  
