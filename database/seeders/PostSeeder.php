@@ -17,16 +17,13 @@ class PostSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {    
-        $cap = 1000;
-        $chunk = 100;
+    {
+        $cap = 1000000;
+        $chunk = 1000;
         for($i = 0;$i< $cap ;$i+= $chunk) {
             //create post
             $posts = Post::factory()->count($chunk)->create();
-
-          
             $posts->each(function ($post){
-
                //integration with elasticsearch
                  $elastic = new Elastic();
                  $elastic->index($post);
@@ -35,8 +32,8 @@ class PostSeeder extends Seeder
                 $post->tags()->sync($tags);
             });
         }
-      
+        //sending sms
         dispatch(new SendSmsJob(array(env("OWNER_MOBILE")),"ElasticSearch is updated."));
-     
+
    }
 }

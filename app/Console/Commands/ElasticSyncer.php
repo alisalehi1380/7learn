@@ -32,7 +32,7 @@ class ElasticSyncer extends Command
         Post::chunk(1000, function (Collection $posts) {
             try
             {
-                foreach ($posts as $post) 
+                foreach ($posts as $post)
                 {
                     $elastic = new Elastic();
                     $elastic->index($post);
@@ -43,9 +43,9 @@ class ElasticSyncer extends Command
             {
                 echo $e->getMessage()."\n";
             }
-           
-        });
 
+        });
+        //sending sms
         dispatch(new SendSmsJob(array(env("OWNER_MOBILE")),"Now elasticsearch and database are synced togheder."));
     }
 }

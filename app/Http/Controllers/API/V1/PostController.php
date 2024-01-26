@@ -16,26 +16,26 @@ class PostController extends Controller
         if(is_numeric(request('page')) && request('page')>1)
         {
              $from = (request('page')-1)*100;
-        } 
-    
-        $filter = array();
- 
-    
+        }
+
+        $filter = array("sort" => ["_score",[ "created_at" => ["order" => "desc","unmapped_type" => "boolean"]]]);
+
         if (isset($_GET['title']))
         {
             $filter['query'] = [ 'match' => ['title' => $_GET['title'] ]];
         }
-    
+
         $params = [
              "from"=> $from,
              "size"=> 100,
              'index' => 'posts',
              'body'  => $filter
+
         ];
-    
+
         $elastic = new Elastic();
         $posts = $elastic->list($params)->hits->hits;
-    
+
         return response()->json(['posts' => new PostCollection($posts)]);
     }
 
