@@ -7,7 +7,7 @@ git clone https://github.com/hamid1ganeh/7learn
 ```
 Now please copy env.example file that is located in the root of you'r project and past it in the same path and rename it to .env file.
 
-In order to Integration laravel with elasticsearch you can use  [laravel scout package](https://laravel.com/docs/10.x/scout) but in this project I prefred make a costomize class and use elasticsearch functions as oop and also I used observer in my model for intgration between database and elasticseach.
+In order to Integration laravel with elasticsearch you can use  [laravel scout](https://laravel.com/docs/10.x/scout) but in this project I preferred make a costomize class and use elasticsearch functions as OOP and also I used observer in my model for intgration between database and elasticseach.
 
 Furthermore in the docker-compose.yml file there are elasticsearch and kibana images but in this project I didn't use them. Because I made my elasticsearch connection directly on a cloud system. If you sign up on [elastic.co](https://www.elastic.co) you can use it free trial for 2 weeks. acording to this [document](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/connecting.html) after making you'r first deployment you can set you'r ELASTICSEARCH_ENDPOINT and ELASTICSEARCH_API_KEY in the .env file.
 After the indexing of the posts in elasticsearch is finished, a SMS will send to number that you set as OWNER_MOBILE in .env file and also I use [Candoo](http://my.candoosms.com)  SMS service that you have to sign up and set SMS_NUMBER, SMS_USERNAME and SMS_PASSWORD in .env file.
