@@ -5,3 +5,4 @@ speed-test-dns/*
 .idea/*
 .editorconfig
 .phpunit.result.cache
+composer.lock

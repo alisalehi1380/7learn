@@ -23,7 +23,7 @@ and then run:
 docker-compose up -d
 ```
 ```bash
-docker-compose exec app composer updated
+docker-compose exec app composer update
 ```
 ```bash
 docker-compose exec app php artisan key:generate
