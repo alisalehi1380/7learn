@@ -1,4 +1,4 @@
-![Logo](https://github.com/hamid1ganeh/7learn/logo.jpeg)
+![Logo](https://github.com/hamid1ganeh/7learn/blob/main/logo.jpeg)
 
 # 7learn
 Firsrt of all you need to clone the project from this repository.
