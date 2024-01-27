@@ -1,3 +1,6 @@
 .env
 vendor/*
 storage/*
+speed-test-dns/*
+.editorconfig
+.phpunit.result.cache
