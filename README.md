@@ -3,7 +3,7 @@
 # 7learn
 Firsrt of all you need to clone the project from this repository.
 ```bash
-git clone https://github.com/hamid1ganeh/7learn
+git clone https://github.com/hamid1ganeh/7learn.git
 ```
 Now please copy env.example file that is located in the root of you'r project and past it in the same path and rename it to .env file.
 
