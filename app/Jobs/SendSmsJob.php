@@ -11,14 +11,17 @@ use App\Services\Sms;
 
 class SendSmsJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
+    use SerializesModels;
 
     protected $mobiles;
     protected $message;
     /**
      * Create a new job instance.
      */
-    public function __construct($mobiles,$message)
+    public function __construct($mobiles, $message)
     {
         $this->mobiles = $mobiles;
         $this->message = $message;
@@ -30,6 +33,6 @@ class SendSmsJob implements ShouldQueue
     public function handle(): void
     {
         $sms = new Sms();
-        $sms->send($this->mobiles,$this->message);
+        $sms->send($this->mobiles, $this->message);
     }
 }

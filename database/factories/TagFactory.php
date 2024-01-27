@@ -17,7 +17,7 @@ class TagFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => '#'.str_replace(' ','_',fake()->name()),
+            'title' => '#'.str_replace(' ', '_', fake()->name()),
         ];
     }
 }

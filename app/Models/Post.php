@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use HasFactory,Searchable;
+    use HasFactory;
 
-    protected $fillable = ['title','content','publishDateTime','status'];
+    protected $fillable = ['title','content','status'];
 
     public function tags()
     {
@@ -18,11 +17,4 @@ class Post extends Model
     }
 
 
-    public function toSearchableArray(): array
-    {
-        return [
-            'title' => $this->title,
-            'content' => $this->content,
-        ];
-    }
 }

@@ -15,8 +15,8 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         Tag::factory()->count(10)->create()
-        ->each(function ($tag){
-            $categories = Category::inRandomOrder()->limit(rand(2,8))->pluck("id");
+        ->each(function ($tag) {
+            $categories = Category::inRandomOrder()->limit(rand(2, 8))->pluck("id");
             $tag->categories()->sync($categories);
         });
     }

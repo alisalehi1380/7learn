@@ -30,22 +30,29 @@ class ElasticSyncer extends Command
     public function handle()
     {
         Post::chunk(1000, function (Collection $posts) {
-            try
-            {
-                foreach ($posts as $post)
-                {
-                    $elastic = new Elastic();
-                    $elastic->index($post);
+            try {
+                $elastic = new Elastic();
+                foreach ($posts as $post) {
+                    $params = [
+                        'index' => 'posts',
+                        'id' => $post->id,
+                        'body' => [
+                            'title' => $post->title,
+                            'content' => $post->content,
+                            'status' => $post->status,
+                            'created_at' => $post->created_at,
+                            'updated_at' => $post->created_at,
+                        ]
+                    ];
+                    $elastic->index($params);
                     echo $post->id.".".$post->title." is tranfered.\n";
                 }
-            }
-            catch (\Exception $e)
-            {
+            } catch (\Exception $e) {
                 echo $e->getMessage()."\n";
             }
 
         });
         //sending sms
-        dispatch(new SendSmsJob(array(env("OWNER_MOBILE")),"Now elasticsearch and database are synced togheder."));
+        dispatch(new SendSmsJob(array(env("OWNER_MOBILE")), "Now elasticsearch and database are synced togheder."));
     }
 }

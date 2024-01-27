@@ -1,7 +1,9 @@
 <?php
 
+use App\Jobs\SendSmsJob;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
- 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +16,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-
     return view('welcome');
-
 });
-
- 
-
- 
