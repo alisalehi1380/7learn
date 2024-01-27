@@ -1,66 +1,64 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![Logo](https://github.com/hamid1ganeh/7learn/logo.jpeg)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 7learn
+Firsrt of all you need to clone the project from this repository.
+Then run 2 below conmmand:
+```bash
+git clone https://github.com/hamid1ganeh/7learn
+```
 
-## About Laravel
+In order to Integration laravel with ElasticSearch you can use  [laravel scout package](https://laravel.com/docs/10.x/scout) but in this project I prefred make a costomize class and use elasticsearch functions as oop.
+furthermore in the docker-compose.yml file there are elasticsearch and kibana images but in this project I didn't use them. because I made my elasticsearch connection directly in a clud system. If you sign up in [elastic.co](https://www.elastic.co) you can use it free trial for two weeks. acording to this [document](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/connecting.html) after making you'r deployment you can set you'r ELASTICSEARCH_ENDPOINT and ELASTICSEARCH_API_KEY in .env file.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+After the indexing of the posts in Elasticsearch is finished, a sms will send to number that you set OWNER_MOBILE in .env file and also I use [Candoo](http://my.candoosms.com)  sms service that you have to signu up and set SMS_NUMBER,SMS_USERNAME and SMS_PASSWORD in .env file.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+ 
+After taht in order to dawnload docker images execut docker, run follow commands:
+```bash
+docker-compose build app
+```
+and then run:
+```bash
+docker-compose up -d
+```
+Now you can execute project on [localhost:1370](localhost:1370) 
 
-## Learning Laravel
+It's time to data entry in database and ElasticSearch by runing the following conmmand:
+```bash
+docker-compose exec app php artisan migrate --seed
+```
+It takes a long time. because last seeder is createing 1 milion record in databae and elasticsearch. but don't wory you can use the system in same time.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Also for any seson if elasticseach datas destoryed don'n wory. that's enough jus run following command:
+```bash
+docker-compose exec app php artisan elastic-syncer
+```
+After running  above command you can observe the result in you'r teminal and finally in the end of this proccess a sms will send to number wich you set as OWNER_MOBILE in the .env file.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Finally I define a hepler function with a unit test that you cas pass it by the following comand:
+```bash
+docker-compose exec app php artisan test
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## Technologies used
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+php 8.2
 
-### Premium Partners
+[laravel 10](https://laravel.com/docs/10.x)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+[ElasticSearch](https://www.elastic.co/)
 
-## Contributing
+[Candoo SMS Service](http://my.candoosms.com/)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+[Queue & job](https://laravel.com/docs/10.x/queues)
+ 
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Authors
 
-## License
+- [@Hamid1ganeh2st](https://github.com/hamid1ganeh)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
