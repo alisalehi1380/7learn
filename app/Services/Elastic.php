@@ -7,17 +7,17 @@ class Elastic
 {
    private $client;
 
-    function __construct() 
+    function __construct()
     {
       $this->client =  ClientBuilder::create()
       ->setHosts([env('ELASTICSEARCH_ENDPOINT')])
-      ->setApiKey(env('ELASTICSEARCH_KEY'))
+      ->setApiKey(env('ELASTICSEARCH_API_KEY'))
       ->build();
     }
 
     public function index($post)
     {
- 
+
       $params = [
          'index' => 'posts',
          'id' => $post->id,
@@ -28,9 +28,9 @@ class Elastic
              'status' => $post->status,
              'created_at' => $post->created_at,
              'updated_at' => $post->created_at,
-         ] 
+         ]
      ];
-   
+
      $this->client->index($params);
     }
 
@@ -54,9 +54,9 @@ class Elastic
              'content' => $post->content,
              'publishDateTime' => $post->publishDateTime,
              'status' => $post->status,
-         ] 
+         ]
      ];
-      
+
      $this->client->update($params);
     }
 
@@ -65,8 +65,8 @@ class Elastic
          $params = [
             'index' => 'posts',
             'id' => $post->id];
-         
+
       $this->client->delete($params);
     }
-   
+
 }
