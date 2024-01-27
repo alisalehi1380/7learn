@@ -2,19 +2,17 @@
 
 # 7learn
 Firsrt of all you need to clone the project from this repository.
-Then run 2 below conmmand:
 ```bash
 git clone https://github.com/hamid1ganeh/7learn
 ```
-
-In order to Integration laravel with ElasticSearch you can use  [laravel scout package](https://laravel.com/docs/10.x/scout) but in this project I prefred make a costomize class and use elasticsearch functions as oop.
-furthermore in the docker-compose.yml file there are elasticsearch and kibana images but in this project I didn't use them. because I made my elasticsearch connection directly in a clud system. If you sign up in [elastic.co](https://www.elastic.co) you can use it free trial for two weeks. acording to this [document](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/connecting.html) after making you'r deployment you can set you'r ELASTICSEARCH_ENDPOINT and ELASTICSEARCH_API_KEY in .env file.
-
-After the indexing of the posts in Elasticsearch is finished, a sms will send to number that you set OWNER_MOBILE in .env file and also I use [Candoo](http://my.candoosms.com)  sms service that you have to signu up and set SMS_NUMBER,SMS_USERNAME and SMS_PASSWORD in .env file.
+Now please copy env.example file that is located in the root of you'r project and past it in the same path and rename it to .env file.
+In order to Integration laravel with Elasticsearch you can use  [laravel scout package](https://laravel.com/docs/10.x/scout) but in this project I prefred make a costomize class and use elasticsearch functions as oop.
+Furthermore in the docker-compose.yml file there are elasticsearch and kibana images but in this project I didn't use them. Because I made my elasticsearch connection directly on a cloud system. If you sign up on [elastic.co](https://www.elastic.co) you can use it free trial for 2 weeks. acording to this [document](https://www.elastic.co/guide/en/elasticsearch/client/php-api/current/connecting.html) after making you'r first deployment you can set you'r ELASTICSEARCH_ENDPOINT and ELASTICSEARCH_API_KEY in the .env file.
+After the indexing of the posts in Elasticsearch is finished, a SMS will send to number that you set as OWNER_MOBILE in .env file and also I use [Candoo](http://my.candoosms.com)  sms service that you have to sign up and set SMS_NUMBER,SMS_USERNAME and SMS_PASSWORD in .env file.
 
 
  
-After taht in order to dawnload docker images execut docker, run follow commands:
+After taht in order to dawnload docker images execut docker by runing the following commands:
 ```bash
 docker-compose build app
 ```
@@ -24,17 +22,17 @@ docker-compose up -d
 ```
 Now you can execute project on [localhost:1370](localhost:1370) 
 
-It's time to data entry in database and ElasticSearch by runing the following conmmand:
+It's time to data entery in database and Elasticsearch by runing the following conmmand:
 ```bash
 docker-compose exec app php artisan migrate --seed
 ```
-It takes a long time. because last seeder is createing 1 milion record in databae and elasticsearch. but don't wory you can use the system in same time.
+It takes a long time. because last seeder is createing 1 milion record in databae and elasticsearch. but don't wory you can use the system simultaneously.
 
-Also for any seson if elasticseach datas destoryed don'n wory. that's enough jus run following command:
+Also for any seson if elasticseach datas destoryed don'n wory. that's enough just runing following command:
 ```bash
 docker-compose exec app php artisan elastic-syncer
 ```
-After running  above command you can observe the result in you'r teminal and finally in the end of this proccess a sms will send to number wich you set as OWNER_MOBILE in the .env file.
+After running  above command you can observe the result in you'r terminal and finally in the end of this proccess a SMS will send to number wich you set as OWNER_MOBILE in the .env file.
 
 Finally I define a hepler function with a unit test that you cas pass it by the following comand:
 ```bash
