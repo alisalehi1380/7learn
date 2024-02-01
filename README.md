@@ -37,7 +37,7 @@ docker-compose exec app php artisan migrate --seed
 ```
 It takes a long time. Because the last seeder is creating 1 milion record in databae and elasticsearch. but don't wory. you can use the system simultaneously.
 
-Also for any seson if elasticseach datas destroyed don't wory. that's enough just running following command:
+Also for any reson if elasticseach datas destroyed don't wory. that's enough just running following command:
 ```bash
 docker-compose exec app php artisan elastic-syncer
 ```
